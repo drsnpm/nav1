@@ -33,7 +33,7 @@ def graphplot(x,ypred):
     plt.ylabel("tip")
     plt.show()
     
-data=pd.read_csv("C://Users//darsh//OneDrive//Documents//programs//python//data10_tips.csv")
+data=pd.read_csv("data10_tips.csv")
 bill=np.array(data.total_bill)
 mbill=np.mat(bill)
 tip=np.array(data.tip)
