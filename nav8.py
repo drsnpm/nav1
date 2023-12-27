@@ -13,4 +13,4 @@ y_pred = classifier.predict(x_test)
 print("Results of Classification using K-nn with K=1 ") 
 for i in range(len(x_test)):
     print(" Sample:", str(x_test[i]), " Actual-label:", str(y_test[i])," Predicted-label:", str(y_pred[i]))
-    print("Classification Accuracy :" , classifier.score(x_test,y_test));
+print("Classification Accuracy :" , classifier.score(x_test,y_test));
