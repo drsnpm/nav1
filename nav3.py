@@ -1,43 +1,31 @@
-import numpy as np 
-import pandas as pd
-data = pd.read_csv("w3.csv",header=None)
-concepts = np.array(data.iloc[:,0:-1])
-print("\nInstances are:\n",concepts)
-target = np.array(data.iloc[:,-1])
-print("\nTarget Values are: ",target)
-
-def learn(concepts,target): 
-    specific_h = concepts[0].copy()
-    print("\nInitialization of specific_h and genearal_h")
-    print("\nSpecific Boundary: ", specific_h)
-    general_h = [["?" for i in range(len(specific_h))] for i in range(len(specific_h))]
-    print("\nGeneric Boundary: ",general_h)  
+import csv
+with open("w3.csv") as f:
+    csv_file = csv.reader(f)
+    data = list(csv_file)
+    specific = data[0][:-1]
+    general = [['?' for i in range(len(specific))] for j in range(len(specific))]
     
-    for i,h  in enumerate(concepts):
-        print("Instance", i+1 , "is ", h)
-        if target[i] == "Yes":
-            print("Instance is Positive ")
-            for x in range(len(specific_h)): 
-                if h[x]!= specific_h[x]:                    
-                    specific_h[x] ='?'                     
-                    general_h[x][x] ='?'
-                   
-        if target[i] == "No":            
-            print("Instance is Negative ")
-            for x in range(len(specific_h)): 
-                if h[x]!= specific_h[x]:                    
-                    general_h[x][x] = specific_h[x]                
-                else:                    
-                    general_h[x][x] = '?'        
-        
-        print("Specific Boundary after ", i+1, "Instance is ", specific_h)         
-        print("Generic Boundary after ", i+1, "Instance is ", general_h)
-        print("\n")
-    indices = [ i for i, val in enumerate(general_h) if val == ['?', '?', '?', '?', '?', '?']]   
-    for i in indices:   
-        general_h.remove(['?', '?', '?', '?', '?', '?']) 
-    return specific_h, general_h 
-
-s_final, g_final = learn(concepts,target)
-print("Final Specific_h: ", s_final, sep="\n")
-print("Final General_h: ", g_final, sep="\n")
+    for i in data:
+        if i[-1] == "Yes":
+            for j in range(len(specific)):
+                if i[j] != specific[j]:
+                    specific[j] = "?"
+                    general[j][j] = "?"          
+        elif i[-1] == "No":
+            for j in range(len(specific)):
+                if i[j] != specific[j]:
+                    general[j][j] = specific[j]
+                else:
+                    general[j][j] = "?"
+        print("\n\nstep "+str(data.index(i)+1)+" of candidate elimination alogorithm")
+        print(specific)
+        print(general)
+    
+    gh = []
+    for i in general:
+        for j in i:
+            if j != '?':
+                gh.append(i)
+                break
+    print("\nFinal Specific_h: ",specific)
+    print("\nFinal General_h: ", gh)
