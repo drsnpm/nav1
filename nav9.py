@@ -6,13 +6,13 @@ def kernel(point,xmat,k):
     m,n = np.shape(xmat)
     weight = np.mat(np.eye(m))
     for i in range(m):
-        diff = point - x[i]
+        diff = point - xmat[i]
         weight[i,i] = np.exp(diff*diff.T / (-2*k**2))
     return weight
 
 def localweight(point,xmat,ymat,k):
     weight = kernel(point,xmat,k)
-    w = (x.T*(weight*x)).I*(x.T*(weight*ymat.T))
+    w = (x.T*(weight*xmat)).I*(x.T*(weight*ymat.T))
     return w
 
 def localweightregression(xmat,ymat,k):
