@@ -9,14 +9,10 @@ def sigmoid(x):
 def sigmoid_grad(x): 
     return x*(1-x) 
 
-output_neurons=1
-input_neurons=2
-hidden_neurons=3
-
-wh = np.random.uniform(size=(input_neurons,hidden_neurons)) 
-wout = np.random.uniform(size=(hidden_neurons,output_neurons))
-bh = np.random.uniform(size=(1,hidden_neurons)) 
-bout = np.random.uniform(size=(1,output_neurons)) 
+wh = np.random.uniform(size=(2,3)) 
+wout = np.random.uniform(size=(3,1))
+bh = np.random.uniform(size=(1,3)) 
+bout = np.random.uniform(size=(1,1)) 
 
 for i in range(1000):  
     h_ip = np.dot(x,wh)+bh 
